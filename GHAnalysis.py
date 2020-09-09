@@ -21,7 +21,7 @@ class Data:
         self.__4Events4PerPPerR = {}
 #将文件读出到list和字符串处理合并在一起，即读出一行处理一行，这样list就不会太大以至于内存爆炸。
         for root, dic, files in os.walk(dict_address):
-            for f in files：
+            for f in files:
                 json_list = []
                 if f[-5:] == '.json':
                     json_path = f
