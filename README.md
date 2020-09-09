@@ -1,3 +1,4 @@
-# 2020-personal-python
+# 2020软工实践第一次个人作业-python
 
-请修改 README
+2020软工实践第一次个人作业
+
