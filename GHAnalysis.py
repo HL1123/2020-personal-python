@@ -20,6 +20,7 @@ class Data:
         self.__4Events4PerR = {}
         self.__4Events4PerPPerR = {}
 #将文件读出到list和字符串处理合并在一起，即读出一行处理一行，这样list就不会太大以至于内存爆炸。
+#下次优化可能是往时间上优化。
         for root, dic, files in os.walk(dict_address):
             for f in files:
                 json_list = []
