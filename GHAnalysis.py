@@ -74,11 +74,12 @@ class Data:
     def __parseDict(self, d: dict, prefix: str):
         _d={}
         for k in d.keys():
-            if str(type(d[k]))[-6:-2] == 'dict':
-                _d.update(self.__parseDict(d[k], k))
-            else:
-                _k=f'{prefix}__{k}' if prefix != '' else k
-                _d[_k]=d[k]
+            if k == 'login' or k == 'actor' or k == 'repo' or k == 'type' or k == 'name':
+                if str(type(d[k]))[-6:-2] == 'dict':
+                    _d.update(self.__parseDict(d[k], k))
+                else:
+                    _k=f'{prefix}__{k}' if prefix != '' else k
+                    _d[_k]=d[k]
         return _d
 
     def __listOfNestedDict2ListOfDict(self, a: list):
