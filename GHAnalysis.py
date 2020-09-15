@@ -3,7 +3,6 @@ import os
 import argparse
 from multiprocessing import Pool
 
-
 class Data:
     def __init__(self, dict_address: int = None, reload: int = 0):
         if reload == 1:
@@ -15,7 +14,7 @@ class Data:
         x = open('2.json', 'r', encoding='utf-8').read()
         self.__4Events4PerR = json.loads(x)
         x = open('3.json', 'r', encoding='utf-8').read()
-        self.__4Events4PerPPerR = json.loads(x)
+        self.__4Events4PerPPerR = json.loads(x) 
 #处理文件 把数据处理后的list覆盖原json的内容 解决子进程向父进程传递数据问题
     def merge(self, f, dict_address):
         json_list = []
@@ -51,19 +50,19 @@ class Data:
                 with open( dict_address +'\\'+f,'r') as x:
                     records=json.load(x)
                 for i in records:
-                    if not self.__4Events4PerP.get(i['actor__login'], 0):
-                        self.__4Events4PerP.update({i['actor__login']: {}})
-                        self.__4Events4PerPPerR.update({i['actor__login']: {}})
-                    self.__4Events4PerP[i['actor__login']][i['type']
-                                              ]=self.__4Events4PerP[i['actor__login']].get(i['type'], 0)+1
-                    if not self.__4Events4PerR.get(i['repo__name'], 0):
-                        self.__4Events4PerR.update({i['repo__name']: {}})
-                    self.__4Events4PerR[i['repo__name']][i['type']
-                                         ]=self.__4Events4PerR[i['repo__name']].get(i['type'], 0)+1
-                    if not self.__4Events4PerPPerR[i['actor__login']].get(i['repo__name'], 0):
-                        self.__4Events4PerPPerR[i['actor__login']].update({i['repo__name']: {}})
-                    self.__4Events4PerPPerR[i['actor__login']][i['repo__name']][i['type']
-                        ]=self.__4Events4PerPPerR[i['actor__login']][i['repo__name']].get(i['type'], 0)+1
+                    if not self.__4Events4PerP.get(i['login'], 0):
+                        self.__4Events4PerP.update({i['login']: {}})
+                        self.__4Events4PerPPerR.update({i['login']: {}})
+                    self.__4Events4PerP[i['login']][i['type']
+                                              ]=self.__4Events4PerP[i['login']].get(i['type'], 0)+1
+                    if not self.__4Events4PerR.get(i['name'], 0):
+                        self.__4Events4PerR.update({i['name']: {}})
+                    self.__4Events4PerR[i['name']][i['type']
+                                         ]=self.__4Events4PerR[i['name']].get(i['type'], 0)+1
+                    if not self.__4Events4PerPPerR[i['login']].get(i['name'], 0):
+                        self.__4Events4PerPPerR[i['login']].update({i['name']: {}})
+                    self.__4Events4PerPPerR[i['login']][i['name']][i['type']
+                        ]=self.__4Events4PerPPerR[i['login']][i['name']].get(i['type'], 0)+1
         with open('1.json', 'w', encoding='utf-8') as f:
             json.dump(self.__4Events4PerP, f)
         with open('2.json', 'w', encoding='utf-8') as f:
@@ -74,11 +73,11 @@ class Data:
     def __parseDict(self, d: dict, prefix: str):
         _d={}
         for k in d.keys():
-            if k == 'login' or k == 'actor' or k == 'repo' or k == 'type' or k == 'name':
+            if k == 'type' or k == 'actor' or k == 'login' or k == 'repo' or k == 'name':
                 if str(type(d[k]))[-6:-2] == 'dict':
                     _d.update(self.__parseDict(d[k], k))
                 else:
-                    _k=f'{prefix}__{k}' if prefix != '' else k
+                    _k=k
                     _d[_k]=d[k]
         return _d
 
