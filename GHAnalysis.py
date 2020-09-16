@@ -1,3 +1,5 @@
+#统计和分析 GitHub 的用户行为数据。
+#利用多线程
 import json
 import os
 import argparse
